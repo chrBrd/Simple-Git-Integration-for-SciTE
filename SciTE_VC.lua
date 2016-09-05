@@ -1,12 +1,10 @@
 setting = {                             
-    Hg = "hg.exe",                      -- Path to `hg.exe` (if available and not in %PATH%)
-    Git = "c:/Program Files (x86)/Git/bin/git.exe",  -- Path to `git.exe` (if available and not in %PATH%)
-    TortoiseHg = "thg.exe",             -- Path to `thg.exe`, if using Tortoise is enabled
-    TortoiseGit = "TortoiseGitProc.exe",-- Path to `TortoiseGitProc.exe`, if using Tortoise is enabled
-    spawner_path = "lua/spawner.dll",   -- Path to `spawner.dll`
-    allow_destroy = true,               -- Option to make destroy command available
-    tortoise = false,                   -- Option to run through Tortoise GUI dialogs instead console
-    dialog = false,                     -- Option to use SciTE strip wrapper dialog for commit massage (overrides OnStrip())
+    Git = "git.exe",  -- Path to `git.exe` (required if Git.exe is not in %PATH%)
+    TortoiseGit = "TortoiseGitProc.exe",-- Path to `TortoiseGitProc.exe`, if option to use Tortoise is enabled
+    spawner_path = "C:/Program Files (x86)/SciTE/extensions/spawner-ex.dll",   -- Path to `spawner-ex.dll`
+    allow_destroy = true,               -- Option to make the destroy command available
+    tortoise = false,                   -- Option to run through Tortoise GUI instead of console
+    dialog = true,                     -- Option to use SciTE strip wrapper dialog for commit massage (overrides OnStrip()). Currently broken, keep set to true.
     command_number = 30,                -- Free SciTE command number slot
 }
 
@@ -32,6 +30,7 @@ if not session['ver'] and spawner then
 end
 
 if setting.dialog then
+-- TODO: This is seemingly broken. Currently have to use the SciTE strip wrapper
     function OnStrip(control, change)
         if change == 1 and control == 2 then
             local msg = scite.StripValue(1)
@@ -48,17 +47,6 @@ end
 local ctrl = session.control
 VC = {
     arg = {
-        Hg = {
-            Log    = {"log -G -v", "log "},
-            Diff   = {"diff", "vdiff "},
-            Add    = {"add ", "add "},
-            Commit = {"commit", "commit "},
-            Revert = {"revert", "revert "},
-            Remove = {"forget", "remove "},
-            Status = {"status -A", "status "},
-            Root   = "root",
-            Code   = "status -A"
-        },
         Git = {
             Log    = {"log --graph", "/command:log /path:"},
             Diff   = {"diff", "/command:diff /path:"},
@@ -72,24 +60,14 @@ VC = {
         }
     },
     init = function()
-        ctrl.hg = ctrl.hg or VC.check_path(setting['Hg'])
         ctrl.git = ctrl.git or VC.check_path(setting['Git'])
         if ctrl[props['FilePath']] then
             VC.userlist(ctrl[props['FilePath']])
-        elseif ctrl.hg and VC.project("Hg"):sub(1,1) ~= 'a' then
-            ctrl[props['FilePath']] = "Hg"; VC.userlist("Hg")
         elseif ctrl.git and VC.project("Git"):sub(1,1) ~= 'f' then
             ctrl[props['FilePath']] = "Git"; VC.userlist("Git")
-        else
-            if ctrl.hg and ctrl.git then
-                if scite_UserListShow then scite_UserListShow(VC.token("Hg:Init Git:Init"), 1, VC.init_repo)
-                else
-                    OnUserListSelection = function(n, l) return VC.init_repo(l) end
-                    editor:UserListShow(3, "Hg:Init Git:Init")
-                end
-            elseif ctrl.hg then VC.userlist("Hg")
-            elseif ctrl.git then VC.userlist("Git")
-            end
+        else       
+	    OnUserListSelection = function(n, l) return VC.init_repo(l) end
+	    editor:UserListShow(3, "Git:Init")
         end
     end,
     project = function(s)
