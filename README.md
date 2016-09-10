@@ -1,78 +1,49 @@
-Simple Version Control for SciTE
+Simple Git Integration for SciTE
 ===
 
-Lua script, as SciTE extension that allows simple version control on local files.  
-Supported versioning system are Git and Mercurial.  
-Supported Operating System is Windows.  
+SciTE extension allowing simple Git version control on local files. Forked from [debjan's](https://github.com/debjan) [SciTE Simple Version Control](https://github.com/debjan/scite-simple-version-control).
 
-Requirements
+--Supports Windows only.  
+-- Currently completely untested with SciTE's sessions feature - might work, might not. Double checking is on the 'TODO' list...
+
+Requirements:
 ---
-Except obvious requirements (SciTE and versioning system) script requires `spawner.dll` (can be found i.e. in [scite-debug archive](http://files.luaforge.net/releases/scitedebug/scitedebug/0.9.1) as `spawner-ex.dll`) which takes care of "silent" command execution (no popup windows).
+This script uses `spawner-ex.dll`, found in `scite-debug.zip` at the [scite-debug archive](http://files.luaforge.net/releases/scitedebug/scitedebug/0.9.1).  
+-- Note: This library is used to prevent cmd windows from popping up every time `git.exe` is executed, although the extension will work without it if all instances of `spawner.popen()` in the script are replaced with `io.popen()`.
 
 Installation
 ---
-Script can be installed by executing from Lua startup script:
-
-`dofile("C:\\<path-to>\\SciTE_VC.lua") `
-
-or by copying the script in `scite_lua` folder, in case of using `extman.lua`.
-
-Settings
----
-Setting the script is provided by editing `setting` table inside the script:
-``` lua
-setting = {                             
-    Hg = "hg.exe",                      
-    Git = "c:/Program Files (x86)/Git/bin/git.exe",  							
-    TortoiseHg = "thg.exe",
-    TortoiseGit = "TortoiseGitProc.exe",
-    spawner_path = "lua/spawner.dll",   
-    allow_destroy = true,               
-    tortoise = false,                   
-    dialog = true,                      
-    command_number = 30,                
-}
-```
+First, ensure your config settings are correct; these can be found in the `config` section at the top of the scipt.
 
 |Property|Value|
 |-------|-----|
-|Hg|Path to `hg.exe` (if available and not in %PATH%)|
-|Git|Path to `git.exe` (if available and not in %PATH%)|
-|TortoiseHg|Path to `thg.exe`, if using Tortoise is enabled|
-|TortoiseGit|Path to `TortoiseGitProc.exe`, if using Tortoise is enabled|
-|spawner_path|Path to `spawner.dll`|
-|allow_destroy|Option to make destroy command available|
-|tortoise|Option to run through Tortoise GUI dialogs instead console|
-|dialog|Option to use SciTE strip wrapper dialog for commit massage (overrides existing)|
-|command_number|SciTE command number free slot |
+|Git|Absolute path to  `git.exe`  (can be left as 'git.exe' if Git has System %PATH% entry).|
+|spawner_path|Absolute path to `spawner-ex.dll`.|
+|tortoise|Option to run through Tortoise GUI instead of using console commands.|
+|TortoiseGit|Absolute path to `TortoiseGitProc.exe`  (Required if Tortoise GUI option is enabled. Can be left as 'TortoiseGitProc.exe' if Tortoise Git has System %PATH% entry (it does by default))|
+|allow_destroy|Make destroy command available; **as SciTE doesn't seem to allow confirmation dialogues it's recommended this is kept off**.|
+|command_number|Free SciTE command number slot.|
 
+From the toolbar select **Options > Open Lua Startup Script** and insert the following line into the file:
 
-Walkthrough
+`dofile("C:\\<path-to>\\SciTE_GIT.lua")`
+
+Once the file has been saved the extension should be working.
+
+Use
 ---
-While editing file, version control can be initialized by selecting __Version Control__ context menu:
+Open/go to the tab of document you want to add to Git and press the right mouse button. You should see a 'Git' option at the bottom of the context menu:
 
-![](http://i.imgur.com/xdKVlWs.png)
+![](http://imgur.com/a/LouGI)
 
-After clicking on it, calltip pops with available versioning system initializers:
+On selecting that the available commands window will open at the position of your caret:
 
-![](http://i.imgur.com/v5JmGhf.png)
+![](http://imgur.com/a/WrAcB)
 
-By clicking on one of available initializers, edited file is automatically added to a versioning system and committed with __init__ message.
+If the `tortoise` option in the `config` section is set to `true`all commands with the exception of `Destroy` will be handled by the Tortoise GUI. Otherwise all commands will be executed using the Windows command line.
 
-Depending on edited file status, Version Control context menu, will provide appropriate commands. For example, if we make some edits and save the file, then we'll have these commands available:
+When using the command line all messages are displayed in SciTE's Output window.
 
-![](http://i.imgur.com/EFf2wL6.png)
+When using the command line instead of the Tortoise GUI, Git commit messages are entered using SciTE's strip dialogue at the bottom of the SciTE window:
 
-Because the file status is __[M]odified__.
-
-Regardless of versioning system used, workflow is identical with either Git or Mercurial.
-
-If we select __Commit__ command and __dialog__ value in `setting` table is set to `true`, we are offered to supply commit message in strip dialog:
-
-![](http://i.imgur.com/Egjqsqa.png)
-
-While if __dialog__ option is set to `false`, Notepad will open with temporary file for commit message as set by versioning system. And of course if Tortoise is used, then all communication will be through Tortoise GUI dialogs instead SciTE output pane.
-
-If option __allow_destroy__ is set to `true`, additional command will be available that can delete project index folder (`.git` or `.hg`) thus destroying versioning project irreversibly.
-
-![](http://i.imgur.com/bOwXyCU.png)
+![](http://imgur.com/a/OkAkJ)
