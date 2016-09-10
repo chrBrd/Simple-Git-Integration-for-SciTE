@@ -12,8 +12,8 @@ git = {
 	
 	-- Configuration data for use in the script.
 	config = {   
-		gitPath = "C:/Program Files/Git/cmd/git.exe",
-		spawnerPath = "C:/Program Files (x86)/SciTE/extensions/spawner-ex.dll",
+		gitPath = "git.exe",
+		spawnerPath = "/PATH-TO/spawner-ex.dll",
 		tortoise = false,
 		TortoiseGit = "TortoiseGitProc.exe",
 		allowDestroy = true,
