@@ -228,7 +228,6 @@ git = {
 			print('Repo destroyed')
 		end,
 
-		-- TODO Check this all works.
 		-- Take care of tortoise stuff
 		tortoise = function(cmd)	
 			spawner.popen(("cd /D %q & %q %s%q"):format(props['FileDir'], config["TortoiseGit"], cmds[cmd], props['FileNameExt']))
@@ -292,6 +291,5 @@ git = {
 		listFuncs:listSelect()
 	end
 }
-
 
 git.sequence()
