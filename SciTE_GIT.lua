@@ -2,7 +2,7 @@
 	** Config Settings **
 	gitPath: 	Absolute path to  'git.exe'  (can be left as 'git.exe' if Git has System %PATH% entry).
 	spawnerPath:	Absolute path to 'spawner-ex.dll'.
-	tortoise:	 Option to run through Tortoise GUI instead of using console commands.
+	tortoise:	Option to run through Tortoise GUI instead of using console commands.
 	TortoiseGit:	Absolute path to 'TortoiseGitProc.exe'  (can be left as 'TortoiseGitProc.exe' if Tortoise Git has System %PATH% entry (it does by default)); required if Tortoise GUI option is enabled.
 	allowDestroy:	Make destroy command available; as SciTE doesn't seem to allow confirmation dialogues it's recommended this is kept off.
 	commandNumber:	Free SciTE command number slot.	
