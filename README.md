@@ -34,16 +34,16 @@ Use
 ---
 Open/go to the tab of document you want to add to Git and press the right mouse button. You should see a 'Git' option at the bottom of the context menu:
 
-![](http://imgur.com/a/LouGI)
+![](http://i.imgur.com/9bYFhqt.png)
 
 On selecting that the available commands window will open at the position of your caret:
 
-![](http://imgur.com/a/WrAcB)
+![](http://i.imgur.com/TOHswrE.png)
+
+
 
 If the `tortoise` option in the `config` section is set to `true`all commands with the exception of `Destroy` will be handled by the Tortoise GUI. Otherwise all commands will be executed using the Windows command line.
 
-When using the command line all messages are displayed in SciTE's Output window.
+When using the command line all messages are displayed in SciTE's Output window. Additionally, Git commit messages are entered using SciTE's strip dialogue at the bottom of the SciTE window:
 
-When using the command line instead of the Tortoise GUI, Git commit messages are entered using SciTE's strip dialogue at the bottom of the SciTE window:
-
-![](http://imgur.com/a/OkAkJ)
+![](http://i.imgur.com/IzLqVqq.png)
