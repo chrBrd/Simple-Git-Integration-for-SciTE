@@ -44,6 +44,6 @@ On selecting that the available commands window will open at the position of you
 
 If the `tortoise` option in the `config` section is set to `true`all commands with the exception of `Destroy` will be handled by the Tortoise GUI. Otherwise all commands will be executed using the Windows command line.
 
-When using the command line all messages are displayed in SciTE's Output window. Additionally, Git commit messages are entered using SciTE's strip dialogue at the bottom of the SciTE window:
+When using `git.exe` all messages are displayed in SciTE's Output window. Git commit messages are entered using SciTE's strip dialogue at the bottom of the SciTE window:
 
 ![](http://i.imgur.com/IzLqVqq.png)
