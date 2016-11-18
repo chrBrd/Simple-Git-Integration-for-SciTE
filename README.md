@@ -22,7 +22,7 @@ First, ensure your config settings are correct; these can be found in the `confi
 |tortoise|Option to run through Tortoise GUI instead of using console commands.|
 |TortoiseGit|Absolute path to `TortoiseGitProc.exe`  (Required if Tortoise GUI option is enabled. Can be left as 'TortoiseGitProc.exe' if Tortoise Git has System %PATH% entry (it does by default))|
 |allow_destroy|Make destroy command available; **as SciTE doesn't seem to allow confirmation dialogues it's recommended this is kept off**.|
-|command_number|Free SciTE command number slot.|
+|command_number|Free SciTE command number slot; if you don't know what that means then you probably don't need to worry about it.|
 
 From the toolbar select **Options > Open Lua Startup Script** and insert the following line into the file:
 
