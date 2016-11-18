@@ -3,8 +3,8 @@ Simple Git Integration for SciTE
 
 SciTE extension allowing simple Git version control on local files. Forked from [debjan's](https://github.com/debjan) [SciTE Simple Version Control](https://github.com/debjan/scite-simple-version-control).
 
---Supports Windows only.  
--- Currently completely untested with SciTE's sessions feature - might work, might not. Double checking is on the 'TODO' list...
+-- Supports Windows only.  
+-- Currently completely untested with SciTE's sessions feature - might work, might not. Double checking is on the 'TODO' list; it probably won't happen unless requested.
 
 Requirements:
 ---
